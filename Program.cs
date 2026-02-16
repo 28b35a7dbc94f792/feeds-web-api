@@ -1,5 +1,6 @@
 using FeedsWebApi.Data;
 using FeedsWebApi.Factories;
+using FeedsWebApi.Helpers;
 using FeedsWebApi.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,7 +16,10 @@ builder.Services.AddDbContext<AppDbContext>(options =>
         builder.Configuration.GetConnectionString("SqliteDb")));
 
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IFeedService, FeedService>();
 builder.Services.AddScoped<IUserResponseDtoFactory, UserResponseDtoFactory>();
+builder.Services.AddScoped<IFeedResponseDtoFactory, FeedResponseDtoFactory>();
+builder.Services.AddScoped<IImageHelper, ImageHelper>();
 
 var app = builder.Build();
 

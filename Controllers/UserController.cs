@@ -16,7 +16,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> Get(int id)
+    public async Task<ActionResult<UserResponseDto>> Get(int id)
     {
         var user = await _userService.GetAsync(id);
 
@@ -44,7 +44,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateAsync(int id, [FromForm] UserUpdateDto dto)
+    public async Task<ActionResult<UserResponseDto>> Update(int id, [FromForm] UserUpdateDto dto)
     {
         try
         {
@@ -62,9 +62,31 @@ public class UserController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteAsync(int id)
+    public async Task<IActionResult> Delete(int id)
     {
         var success = await _userService.DeleteAsync(id);
+
+        if (!success)
+            return NotFound();
+
+        return NoContent();
+    }
+
+    [HttpPost("{userId}/likes/{feedId}")]
+    public async Task<IActionResult> LikeFeed(int userId, int feedId)
+    {
+        var success = await _userService.LikeFeedAsync(userId, feedId);
+
+        if (!success)
+            return Conflict("User already liked this feed.");
+
+        return NoContent();
+    }
+
+    [HttpDelete("{userId}/likes/{feedId}")]
+    public async Task<IActionResult> UnlikeFeed(int userId, int feedId)
+    {
+        var success = await _userService.UnlikeFeedAsync(userId, feedId);
 
         if (!success)
             return NotFound();
