@@ -6,5 +6,7 @@ public class FeedResponseDto : FeedBaseDto
 
     public int PublishingUserId { get; set; }
 
+    public DateTime CreatedAt { get; set; }
+
     public int LikeCount { get; set; }
 }

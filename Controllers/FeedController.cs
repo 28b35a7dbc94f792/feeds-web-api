@@ -47,13 +47,13 @@ public class FeedController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create([FromForm] FeedCreateDto dto)
+    public async Task<ActionResult<FeedResponseDto>> Create([FromForm] FeedCreateDto dto)
     {
         try
         {
-            var id = await _feedService.CreateAsync(dto);
+            var feed = await _feedService.CreateAsync(dto);
 
-            return CreatedAtAction(nameof(Get), new { id }, null);
+            return CreatedAtAction(nameof(Get), new { id = feed.Id }, feed);
         }
         catch (ArgumentException ex)
         {

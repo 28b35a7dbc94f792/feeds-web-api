@@ -2,6 +2,7 @@ using FeedsWebApi.Data;
 using FeedsWebApi.Dtos;
 using FeedsWebApi.Factories;
 using FeedsWebApi.Models;
+using FeedsWebApi.Validators;
 using Microsoft.EntityFrameworkCore;
 
 namespace FeedsWebApi.Services;
@@ -9,7 +10,7 @@ namespace FeedsWebApi.Services;
 public interface IUserService
 {
     Task<UserResponseDto?> GetAsync(int id);
-    Task<int> CreateAsync(UserCreateDto dto);
+    Task<UserResponseDto?> CreateAsync(UserCreateDto dto);
     Task<UserResponseDto?> UpdateAsync(int id, UserUpdateDto dto);
     Task<bool> DeleteAsync(int id);
     Task<bool> LikeFeedAsync(int userId, int feedId);
@@ -19,14 +20,17 @@ public interface IUserService
 public class UserService : IUserService
 {
     private readonly AppDbContext _context;
-    private readonly IUserResponseDtoFactory _userReadDtoFactory;
+    private readonly IUserResponseDtoFactory _userResponseDtoFactory;
+    private readonly IUserDtoValidator _userDtoValidator;
 
     public UserService(
         AppDbContext context,
-        IUserResponseDtoFactory userReadDtoFactory)
+        IUserResponseDtoFactory userResponseDtoFactory,
+        IUserDtoValidator userDtoValidator)
     {
         _context = context;
-        _userReadDtoFactory = userReadDtoFactory;
+        _userResponseDtoFactory = userResponseDtoFactory;
+        _userDtoValidator = userDtoValidator;
     }
 
     public async Task<UserResponseDto?> GetAsync(int id)
@@ -36,11 +40,13 @@ public class UserService : IUserService
         if (user == null)
             return null;
         
-        return _userReadDtoFactory.Create(user);
+        return _userResponseDtoFactory.Create(user);
     }
 
-    public async Task<int> CreateAsync(UserCreateDto dto)
+    public async Task<UserResponseDto?> CreateAsync(UserCreateDto dto)
     {
+        await _userDtoValidator.ValidateCreate(dto);
+
         var user = new User
         {
             Username = dto.Username,
@@ -51,7 +57,7 @@ public class UserService : IUserService
 
         await _context.SaveChangesAsync();
 
-        return user.Id;
+        return _userResponseDtoFactory.Create(user);
     }
 
     public async Task<UserResponseDto?> UpdateAsync(int id, UserUpdateDto dto)
@@ -61,12 +67,14 @@ public class UserService : IUserService
         if (user == null)
             return null;
 
+        await _userDtoValidator.ValidateUpdate(id, dto);
+
         user.Username = dto.Username;
         user.FullName = dto.FullName;
 
         await _context.SaveChangesAsync();
     
-        return _userReadDtoFactory.Create(user);
+        return _userResponseDtoFactory.Create(user);
     }
 
     public async Task<bool> DeleteAsync(int id)

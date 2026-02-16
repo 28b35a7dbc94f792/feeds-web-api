@@ -20,6 +20,7 @@ public class FeedResponseDtoFactory : IFeedResponseDtoFactory
             PublishingUserId = feed.PublishingUserId,
             Type = feed.Type,
             VideoUrl = feed.VideoUrl,
+            CreatedAt = feed.CreatedAt,
             LikeCount = feed.Likes.Count()
         };
     }

@@ -2,6 +2,7 @@ using FeedsWebApi.Data;
 using FeedsWebApi.Factories;
 using FeedsWebApi.Helpers;
 using FeedsWebApi.Services;
+using FeedsWebApi.Validators;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +18,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IFeedService, FeedService>();
+builder.Services.AddScoped<IUserDtoValidator,UserDtoValidator>();
+builder.Services.AddScoped<IFeedDtoValidator,FeedDtoValidator>();
 builder.Services.AddScoped<IUserResponseDtoFactory, UserResponseDtoFactory>();
 builder.Services.AddScoped<IFeedResponseDtoFactory, FeedResponseDtoFactory>();
 builder.Services.AddScoped<IImageHelper, ImageHelper>();

@@ -16,7 +16,8 @@ public class UserResponseDtoFactory : IUserResponseDtoFactory
         {
             Id = user.Id,
             Username = user.Username,
-            FullName = user.FullName
+            FullName = user.FullName,
+            CreatedAt = user.CreatedAt
         };
     }
 }

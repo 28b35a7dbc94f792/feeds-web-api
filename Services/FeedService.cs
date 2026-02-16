@@ -3,6 +3,7 @@ using FeedsWebApi.Dtos;
 using FeedsWebApi.Factories;
 using FeedsWebApi.Helpers;
 using FeedsWebApi.Models;
+using FeedsWebApi.Validators;
 using Microsoft.EntityFrameworkCore;
 
 namespace FeedsWebApi.Services;
@@ -12,7 +13,7 @@ public interface IFeedService
     Task<List<FeedResponseDto>> GetAllAsync();
     Task<FeedResponseDto?> GetAsync(int id);
     Task<ImageDto?> GetImageAsync(int id);
-    Task<int> CreateAsync(FeedCreateDto dto);
+    Task<FeedResponseDto?> CreateAsync(FeedCreateDto dto);
     Task<FeedResponseDto?> UpdateAsync(int id, FeedUpdateDto dto);
     Task<bool> DeleteAsync(int id);
 }
@@ -21,15 +22,18 @@ public class FeedService : IFeedService
 {
     private readonly AppDbContext _context;
     private readonly IFeedResponseDtoFactory _feedResponseDtoFactory;
+    private readonly IFeedDtoValidator _feedDtoValidator;
     private readonly IImageHelper _imageHelper;
 
     public FeedService(
         AppDbContext context,
         IFeedResponseDtoFactory feedResponseDtoFactory,
+        IFeedDtoValidator feedDtoValidator,
         IImageHelper imageHelper)
     {
         _context = context;
         _feedResponseDtoFactory = feedResponseDtoFactory;
+        _feedDtoValidator = feedDtoValidator;
         _imageHelper = imageHelper;
     }
 
@@ -53,7 +57,7 @@ public class FeedService : IFeedService
 
         if (feed == null)
             return null;
-        
+
         return _feedResponseDtoFactory.Create(feed);
     }
 
@@ -71,8 +75,10 @@ public class FeedService : IFeedService
         };
     }
 
-    public async Task<int> CreateAsync(FeedCreateDto dto)
+    public async Task<FeedResponseDto?> CreateAsync(FeedCreateDto dto)
     {
+        await _feedDtoValidator.ValidateCreate(dto);
+
         var feed = new Feed
         {
             Title = dto.Title,
@@ -82,14 +88,13 @@ public class FeedService : IFeedService
             VideoUrl = dto.VideoUrl
         };
 
-        if (dto.Image != null)
-            await _imageHelper.PopulateImageAsync(feed, dto.Image);
+        await _imageHelper.PopulateImageAsync(feed, dto.Image);
 
         _context.Feeds.Add(feed);
 
         await _context.SaveChangesAsync();
 
-        return feed.Id;
+        return _feedResponseDtoFactory.Create(feed);
     }
 
     public async Task<FeedResponseDto?> UpdateAsync(int id, FeedUpdateDto dto)
@@ -99,13 +104,14 @@ public class FeedService : IFeedService
         if (feed == null)
             return null;
 
+        await _feedDtoValidator.ValidateUpdate(dto);
+
         feed.Title = dto.Title;
         feed.Description = dto.Description;
         feed.Type = dto.Type;
         feed.VideoUrl = dto.VideoUrl;
 
-        if (dto.Image != null)
-            await _imageHelper.PopulateImageAsync(feed, dto.Image);
+        await _imageHelper.PopulateImageAsync(feed, dto.Image);
 
         await _context.SaveChangesAsync();
 

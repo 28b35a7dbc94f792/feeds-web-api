@@ -29,13 +29,13 @@ public class UserController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create([FromForm] UserCreateDto dto)
+    public async Task<ActionResult<UserResponseDto>> Create([FromForm] UserCreateDto dto)
     {
         try
         {
-            var id = await _userService.CreateAsync(dto);
+            var user = await _userService.CreateAsync(dto);
 
-            return CreatedAtAction(nameof(Get), new { id }, null);
+            return CreatedAtAction(nameof(Get), new { id = user.Id }, user);
         }
         catch (ArgumentException ex)
         {
