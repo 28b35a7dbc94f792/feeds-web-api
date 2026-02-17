@@ -19,6 +19,7 @@ builder.Services.AddScoped<IFeedDtoValidator,FeedDtoValidator>();
 builder.Services.AddScoped<IFeedResponseDtoFactory, FeedResponseDtoFactory>();
 builder.Services.AddScoped<IFeedService, FeedService>();
 builder.Services.AddScoped<IImageHelper, ImageHelper>();
+builder.Services.AddScoped<ILikeValidator, LikeValidator>();
 builder.Services.AddScoped<IRemoteFeedHelper, RemoteFeedHelper>();
 builder.Services.AddScoped<IUserDtoValidator,UserDtoValidator>();
 builder.Services.AddScoped<IUserResponseDtoFactory, UserResponseDtoFactory>();

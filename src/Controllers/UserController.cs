@@ -75,12 +75,19 @@ public class UserController : ControllerBase
     [HttpPost("{userId}/likes/{feedId}")]
     public async Task<IActionResult> LikeFeed(int userId, int feedId)
     {
-        var success = await _userService.LikeFeedAsync(userId, feedId);
+        try
+        {
+            var success = await _userService.LikeFeedAsync(userId, feedId);
 
-        if (!success)
-            return Conflict("User already liked this feed.");
+            if (!success)
+                return Conflict("User already liked this feed.");
 
-        return NoContent();
+            return NoContent();
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
     [HttpDelete("{userId}/likes/{feedId}")]

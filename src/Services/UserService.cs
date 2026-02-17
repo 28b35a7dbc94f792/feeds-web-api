@@ -22,15 +22,18 @@ public class UserService : IUserService
     private readonly AppDbContext _context;
     private readonly IUserResponseDtoFactory _userResponseDtoFactory;
     private readonly IUserDtoValidator _userDtoValidator;
+    private readonly ILikeValidator _likeValidator;
 
     public UserService(
         AppDbContext context,
         IUserResponseDtoFactory userResponseDtoFactory,
-        IUserDtoValidator userDtoValidator)
+        IUserDtoValidator userDtoValidator,
+        ILikeValidator likeValidator)
     {
         _context = context;
         _userResponseDtoFactory = userResponseDtoFactory;
         _userDtoValidator = userDtoValidator;
+        _likeValidator = likeValidator;
     }
 
     public async Task<UserResponseDto?> GetAsync(int id)
@@ -93,8 +96,7 @@ public class UserService : IUserService
 
     public async Task<bool> LikeFeedAsync(int userId, int feedId)
     {
-        var likeExists = await _context.Likes
-            .AnyAsync(l => l.UserId == userId && l.FeedId == feedId);
+        var likeExists = await _likeValidator.Validate(userId, feedId);
 
         if (likeExists)
             return false;
