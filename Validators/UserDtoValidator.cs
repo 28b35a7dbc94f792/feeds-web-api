@@ -27,7 +27,7 @@ public class UserDtoValidator : IUserDtoValidator
             await _context.Users.AnyAsync(u => u.Username == dto.Username);
 
         if (isExistingUsername)
-            throw new ArgumentException("Username is already in use.");
+            throw new ArgumentException("Username is taken.");
     }
 
     public async Task ValidateUpdate(int id, UserUpdateDto dto)
@@ -38,7 +38,7 @@ public class UserDtoValidator : IUserDtoValidator
             await _context.Users.AnyAsync(u => u.Id != id && u.Username == dto.Username);
 
         if (isExistingUsername)
-            throw new ArgumentException("Username is already in use.");
+            throw new ArgumentException("Username is taken.");
     }
 
     private async Task ValidateCommon(UserBaseDto dto)
