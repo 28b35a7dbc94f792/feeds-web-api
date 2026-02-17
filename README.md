@@ -10,29 +10,22 @@ Egyszerű web API feedek kezelésére.
 
 ### Git repository letöltése
 
-`[cd <base dir>]`
-
-`git clone https://github.com/28b35a7dbc94f792/feeds-web-api.git`
+- `[cd <base dir>]`
+- `git clone https://github.com/28b35a7dbc94f792/feeds-web-api.git`
 
 ### Fordítás
 
-`[cd <base dir>]`
-
-`cd feeds-web-api/`
-
-`dotnet build`
-
-`cd src`
-
-`dotnet ef database update`
+- `[cd <base dir>]`
+- `cd feeds-web-api/`
+- `dotnet build`
+- `cd src`
+- `dotnet ef database update`
 
 ### Futtatás
 
-`[cd <base dir>]`
-
-`cd feeds-web-api/src/`
-
-`dotnet run`
+- `[cd <base dir>]`
+- `cd feeds-web-api/src/`
+- `dotnet run`
 
 Az alkalmazás alapértelmezés szerint itt lesz elérhető:
 
@@ -40,11 +33,9 @@ http://localhost:5097/
 
 ### Tesztek futtatása
 
-`[cd <base dir>]`
-
-`cd feeds-web-api/tests/`
-
-`dotnet test`
+- `[cd <base dir>]`
+- `cd feeds-web-api/tests/`
+- `dotnet test`
 
 ## Funkciók
 
@@ -100,12 +91,12 @@ http://localhost:5097/swagger/index.html
 
 ## Megjegyzések
 
-- Minden feedhez kötelező Title, Description és AuthorId megadása, utóbbi egy létező felhasználó ID-ja kell, hogy legyen
-- Text feedekhez (Type=1) nem tartozhat Image és VideoUrl
-- Image feedekhez (Type=2) tartoznia kell Image-nek, de nem tartozhaz hozzá VideoUrl
-- Video feedekhez (Type=3) tartozhat Image és tartoznia kell VideoUrl-nek
-- Felhasználókhoz kötelező egyedi Username megadása, a Name opcionális
+- Minden feedhez kötelező `Title`, `Description` és `AuthorId` megadása, utóbbi egy létező felhasználó ID-ja kell, hogy legyen
+- Text feedekhez (`Type=1`) nem tartozhat `Image` és `VideoUrl`
+- Image feedekhez (`Type=2`) tartoznia kell `Image`-nek, de nem tartozhaz hozzá `VideoUrl`
+- Video feedekhez (`Type=3`) tartozhat `Image` és tartoznia kell `VideoUrl`-nek
+- Felhasználókhoz kötelező egyedi `Username` megadása, a `Name` opcionális
 - Egy felhasználó egy feedet csak egyszer like-olhat
 - Felhasználó törlése a felhasználó feedjeinek és like-jainak törlését vonja maga után
 - Feed törlése a hozzá tartozó like-ok törlését vonja maga után
-- Az alkalmazás képes rá, hogy az összes feed lekérésekor (GET /api/feeds) egy külső RSS feedet is lekérjen, és elemeit az eredményhez fűzve visszaadja. Ez alapértelmezés szerint engedélyezve van, de opcionális. A külső RSS feed URL-je és az átveendő elemek maximális száma a feeds-web-api/src/appsettings.json fájlban konfigurálható, üres URL vagy MaxItems=0 beállításával kikapcsolható.
+- Az alkalmazás képes rá, hogy az összes feed lekérésekor (`GET /api/feeds`) egy külső RSS feedet is lekérjen, és elemeit az eredményhez fűzve visszaadja. Ez alapértelmezés szerint engedélyezve van, de opcionális. A külső RSS feed URL-je és az átveendő elemek maximális száma a `feeds-web-api/src/appsettings.json` fájlban konfigurálható, üres `Url` vagy 0 `MaxItems` beállításával kikapcsolható.
