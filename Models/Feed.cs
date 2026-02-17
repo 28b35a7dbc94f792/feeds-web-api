@@ -10,8 +10,9 @@ public class Feed
 
     public string Description { get; set; } = string.Empty;
 
-    public int PublishingUserId { get; set; }
-    public User PublishingUser { get; set; } = null!;
+    public int AuthorId { get; set; }
+
+    public User Author { get; set; } = null!;
 
     public FeedType Type { get; set; }
 
@@ -21,7 +22,7 @@ public class Feed
 
     public string? VideoUrl { get; set; }
 
-    public List<Like> Likes { get; set; } = new();
+    public DateTime PublishingDate { get; set; } = DateTime.UtcNow;
 
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public List<Like> Likes { get; set; } = new();
 }

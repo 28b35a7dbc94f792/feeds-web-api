@@ -1,4 +1,5 @@
 using FeedsWebApi.Dtos;
+using FeedsWebApi.Enums;
 using FeedsWebApi.Models;
 
 namespace FeedsWebApi.Factories;
@@ -6,6 +7,11 @@ namespace FeedsWebApi.Factories;
 public interface IFeedResponseDtoFactory
 {
     FeedResponseDto Create(Feed feed);
+    FeedResponseDto Create(
+        string? title,
+        string? description,
+        string? author,
+        DateTime? createdAt);
 }
 
 public class FeedResponseDtoFactory : IFeedResponseDtoFactory
@@ -17,11 +23,29 @@ public class FeedResponseDtoFactory : IFeedResponseDtoFactory
             Id = feed.Id,
             Title = feed.Title,
             Description = feed.Description,
-            PublishingUserId = feed.PublishingUserId,
+            AuthorId = feed.AuthorId,
+            Author = feed.Author.Name ?? feed.Author.Username,
             Type = feed.Type,
             VideoUrl = feed.VideoUrl,
-            CreatedAt = feed.CreatedAt,
+            PublishingDate = feed.PublishingDate,
+            HasImage = feed.ImageData != null,
             LikeCount = feed.Likes.Count()
+        };
+    }
+
+    public FeedResponseDto Create(
+        string? title,
+        string? description,
+        string? author,
+        DateTime? createdAt)
+    {
+        return new FeedResponseDto
+        {
+            Title = title ?? string.Empty,
+            Description = description ?? string.Empty,
+            Author = author,
+            Type = FeedType.Text,
+            PublishingDate = createdAt
         };
     }
 }

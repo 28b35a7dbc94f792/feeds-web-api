@@ -50,7 +50,7 @@ public class UserService : IUserService
         var user = new User
         {
             Username = dto.Username,
-            FullName = dto.FullName
+            Name = dto.Name
         };
 
         _context.Users.Add(user);
@@ -70,7 +70,7 @@ public class UserService : IUserService
         await _userDtoValidator.ValidateUpdate(id, dto);
 
         user.Username = dto.Username;
-        user.FullName = dto.FullName;
+        user.Name = dto.Name;
 
         await _context.SaveChangesAsync();
     

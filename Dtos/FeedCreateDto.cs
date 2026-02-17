@@ -2,7 +2,7 @@ namespace FeedsWebApi.Dtos;
 
 public class FeedCreateDto : FeedBaseDto
 {
-    public int PublishingUserId { get; set; }
+    public int AuthorId { get; set; }
 
     public IFormFile? Image { get; set; }
 }

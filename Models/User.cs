@@ -6,7 +6,7 @@ public class User
 
     public string Username { get; set; } = string.Empty;
 
-    public string FullName { get; set; } = string.Empty;
+    public string? Name { get; set; }
 
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime CreationDate { get; set; } = DateTime.UtcNow;
 }

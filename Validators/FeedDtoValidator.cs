@@ -23,10 +23,10 @@ public class FeedDtoValidator : IFeedDtoValidator
     {
         await ValidateCommon(dto);
 
-        var publishingUser = await _context.Users.FindAsync(dto.PublishingUserId);
+        var author = await _context.Users.FindAsync(dto.AuthorId);
 
-        if (publishingUser == null)
-            throw new ArgumentException("Publishing User ID is invalid.");
+        if (author == null)
+            throw new ArgumentException("Author ID is invalid.");
 
         if (dto.Type == FeedType.Image && dto.Image == null)
             throw new ArgumentException("Image is required for image feeds.");
@@ -56,6 +56,9 @@ public class FeedDtoValidator : IFeedDtoValidator
 
         if (string.IsNullOrEmpty(dto.Description))
             throw new ArgumentException("Description is required.");
+
+        if (!Enum.IsDefined<FeedType>(dto.Type))
+            throw new ArgumentException("Feed type is invalid.");
 
         if (dto.Type == FeedType.Video && string.IsNullOrEmpty(dto.VideoUrl))
             throw new ArgumentException("Video URL is required for video feeds.");

@@ -39,22 +39,22 @@ public class AppDbContext : DbContext
             {
                 Id = 3,
                 Username = "skye.lumen",
-                FullName = "Skye Lumen",
-                CreatedAt = baseTimestamp.AddMinutes(-258)
+                Name = "Skye Lumen",
+                CreationDate = baseTimestamp.AddMinutes(-258)
             },
             new User
             {
                 Id = 2,
                 Username = "lisa.nova",
-                FullName = "Lisa Nova",
-                CreatedAt = baseTimestamp.AddMinutes(-270)
+                Name = "Lisa Nova",
+                CreationDate = baseTimestamp.AddMinutes(-270)
             },
             new User
             {
                 Id = 1,
                 Username = "cypress.vale",
-                FullName = "Cypress Vale",
-                CreatedAt = baseTimestamp.AddMinutes(-345)
+                Name = "Cypress Vale",
+                CreationDate = baseTimestamp.AddMinutes(-345)
             }
         );
 
@@ -91,92 +91,92 @@ public class AppDbContext : DbContext
                 Id = 9,
                 Title = "Snow!!",
                 Description = "It's snowing even more!!!",
-                PublishingUserId = 2,
+                AuthorId = 2,
                 Type = FeedType.Text,
-                CreatedAt = baseTimestamp.AddMinutes(-26)
+                PublishingDate = baseTimestamp.AddMinutes(-26)
             },
             new Feed
             {
                 Id = 8,
                 Title = "Atrium 2",
                 Description = "Vissage Graphics",
-                PublishingUserId = 1,
+                AuthorId = 1,
                 Type = FeedType.Image,
                 ImageData = atrium2Gif,
                 ImageContentType = "image/gif",
-                CreatedAt = baseTimestamp.AddMinutes(-47)
+                PublishingDate = baseTimestamp.AddMinutes(-47)
             },
             new Feed
             {
                 Id = 7,
                 Title = "Snow!",
                 Description = "It's snowing!!",
-                PublishingUserId = 2,
+                AuthorId = 2,
                 Type = FeedType.Text,
-                CreatedAt = baseTimestamp.AddMinutes(-49)
+                PublishingDate = baseTimestamp.AddMinutes(-49)
             },
             new Feed
             {
                 Id = 6,
                 Title = "Doctor Manhattan Is Tired of Earth",
                 Description = "Doctor Manhattan is tired of these people",
-                PublishingUserId = 3,
+                AuthorId = 3,
                 Type = FeedType.Text,
-                CreatedAt = baseTimestamp.AddMinutes(-54)
+                PublishingDate = baseTimestamp.AddMinutes(-54)
             },
             new Feed
             {
                 Id = 5,
                 Title = "AST Premium Computer Products",
                 Description = "Hottest 286 PC in the Business!",
-                PublishingUserId = 3,
+                AuthorId = 3,
                 Type = FeedType.Image,
                 ImageData = austr2Gif,
                 ImageContentType = "image/gif",
-                CreatedAt = baseTimestamp.AddMinutes(-72)
+                PublishingDate = baseTimestamp.AddMinutes(-72)
             },
             new Feed
             {
                 Id = 4,
                 Title = "Golden Gate Bridge",
                 Description = "San Fransisco, 1989",
-                PublishingUserId = 2,
+                AuthorId = 2,
                 Type = FeedType.Image,
                 ImageData = ggbrGif,
                 ImageContentType = "image/gif",
-                CreatedAt = baseTimestamp.AddMinutes(-80)
+                PublishingDate = baseTimestamp.AddMinutes(-80)
             },
             new Feed
             {
                 Id = 3,
                 Title = "I Played DOOM On An Abandoned Industrial Cake Machine",
                 Description = "Person played DOOM on an abandoned industrial cake machine",
-                PublishingUserId = 1,
+                AuthorId = 1,
                 Type = FeedType.Video,
                 ImageData = satviewGif,
                 ImageContentType = "image/gif",
                 VideoUrl = "https://makertube.net/w/ovPMWBAwpdYsb6EmHeLaXY",
-                CreatedAt = baseTimestamp.AddMinutes(-99)
+                PublishingDate = baseTimestamp.AddMinutes(-99)
             },
             new Feed
             {
                 Id = 2,
                 Title = "where were u wen club penguin die",
                 Description = "i was at house eating dorito when phone ring | 'Club penguin is kil' | 'no'",
-                PublishingUserId = 3,
+                AuthorId = 3,
                 Type = FeedType.Text,
-                CreatedAt = baseTimestamp.AddMinutes(-101)
+                PublishingDate = baseTimestamp.AddMinutes(-101)
             },
             new Feed
             {
                 Id = 1,
                 Title = "Sun Room",
                 Description = "PROGRAFX IMAGING BBS (503)649-1161",
-                PublishingUserId = 2,
+                AuthorId = 2,
                 Type = FeedType.Image,
                 ImageData = sunroom1Gif,
                 ImageContentType = "image/gif",
-                CreatedAt = baseTimestamp.AddMinutes(-128)
+                PublishingDate = baseTimestamp.AddMinutes(-128)
             }
         );
 
@@ -185,50 +185,42 @@ public class AppDbContext : DbContext
             new Like
             {
                 UserId = 1,
-                FeedId = 5,
-                CreatedAt = baseTimestamp.AddMinutes(-29)
+                FeedId = 5
             },
             new Like
             {
                 UserId = 3,
-                FeedId = 7,
-                CreatedAt = baseTimestamp.AddMinutes(-30)
+                FeedId = 7
             },
             new Like
             {
                 UserId = 3,
-                FeedId = 4,
-                CreatedAt = baseTimestamp.AddMinutes(-34)
+                FeedId = 4
             },
             new Like
             {
                 UserId = 2,
-                FeedId = 8,
-                CreatedAt = baseTimestamp.AddMinutes(-40)
+                FeedId = 8
             },
             new Like
             {
                 UserId = 3,
-                FeedId = 1,
-                CreatedAt = baseTimestamp.AddMinutes(-42)
+                FeedId = 1
             },
             new Like
             {
                 UserId = 2,
-                FeedId = 3,
-                CreatedAt = baseTimestamp.AddMinutes(-71)
+                FeedId = 3
             },
             new Like
             {
                 UserId = 1,
-                FeedId = 1,
-                CreatedAt = baseTimestamp.AddMinutes(-94)
+                FeedId = 1
             },
             new Like
             {
                 UserId = 1,
-                FeedId = 4,
-                CreatedAt = baseTimestamp.AddMinutes(-96)
+                FeedId = 4
             }
         );
     }

@@ -2,9 +2,9 @@ using FeedsWebApi.Data;
 using FeedsWebApi.Dtos;
 using FeedsWebApi.Factories;
 using FeedsWebApi.Helpers;
-using FeedsWebApi.Models;
 using FeedsWebApi.Validators;
 using Microsoft.EntityFrameworkCore;
+using Feed = FeedsWebApi.Models.Feed;
 
 namespace FeedsWebApi.Services;
 
@@ -24,34 +24,52 @@ public class FeedService : IFeedService
     private readonly IFeedResponseDtoFactory _feedResponseDtoFactory;
     private readonly IFeedDtoValidator _feedDtoValidator;
     private readonly IImageHelper _imageHelper;
+    private readonly IRemoteFeedHelper _remoteFeedHelper;
 
     public FeedService(
         AppDbContext context,
         IFeedResponseDtoFactory feedResponseDtoFactory,
         IFeedDtoValidator feedDtoValidator,
-        IImageHelper imageHelper)
+        IImageHelper imageHelper,
+        IRemoteFeedHelper remoteFeedHelper)
     {
         _context = context;
         _feedResponseDtoFactory = feedResponseDtoFactory;
         _feedDtoValidator = feedDtoValidator;
         _imageHelper = imageHelper;
+        _remoteFeedHelper = remoteFeedHelper;
     }
 
     public async Task<List<FeedResponseDto>> GetAllAsync()
     {
         var feeds = await _context.Feeds
-            .OrderByDescending(f => f.CreatedAt)
+            .Include(f => f.Author)
             .Include(f => f.Likes)
+            .OrderByDescending(f => f.PublishingDate)
             .ToListAsync();
 
-        return feeds
+        var feedDtos = feeds
             .Select(f => _feedResponseDtoFactory.Create(f))
             .ToList();
+
+        var remoteFeedDtos = await _remoteFeedHelper.ReadAsync();
+
+        if (remoteFeedDtos.Count != 0)
+        {
+            feedDtos.AddRange(remoteFeedDtos);
+
+            feedDtos = feedDtos
+                .OrderByDescending(f => f.PublishingDate)
+                .ToList();
+        }
+
+        return feedDtos;
     }
 
     public async Task<FeedResponseDto?> GetAsync(int id)
     {
         var feed = await _context.Feeds
+            .Include(f => f.Author)
             .Include(f => f.Likes)
             .FirstOrDefaultAsync(f => f.Id == id);
 
@@ -83,7 +101,7 @@ public class FeedService : IFeedService
         {
             Title = dto.Title,
             Description = dto.Description,
-            PublishingUserId = dto.PublishingUserId,
+            AuthorId = dto.AuthorId,
             Type = dto.Type,
             VideoUrl = dto.VideoUrl
         };
