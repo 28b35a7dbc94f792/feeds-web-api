@@ -10,13 +10,13 @@ Egyszerű web API feedek kezelésére.
 
 ### Git repository letöltése
 
-`[cd &lt;base dir&gt;]`
+`[cd <base dir>]`
 
 `git clone https://github.com/28b35a7dbc94f792/feeds-web-api.git`
 
 ### Fordítás
 
-`[cd &lt;base dir&gt;]`
+`[cd <base dir>]`
 
 `cd feeds-web-api/`
 
@@ -28,7 +28,7 @@ Egyszerű web API feedek kezelésére.
 
 ### Futtatás
 
-`[cd &lt;base dir&gt;]`
+`[cd <base dir>]`
 
 `cd feeds-web-api/src/`
 
@@ -40,7 +40,7 @@ http://localhost:5097/
 
 ### Tesztek futtatása
 
-`[cd &lt;base dir&gt;]`
+`[cd <base dir>]`
 
 `cd feeds-web-api/tests/`
 
@@ -85,18 +85,18 @@ http://localhost:5097/swagger/index.html
 
 #### Feed létrehozása
 - `curl -X 'POST' 'http://localhost:5097/api/feeds' -F 'Title=This just happened!' -F 'Description=Incredible!' -F 'AuthorId=2' -F 'Type=1'`
-- curl -X 'POST' 'http://localhost:5097/api/feeds' -F 'Title=This just happened!' -F 'Description=Incredible photo!' -F 'AuthorId=2' -F 'Type=2' -F 'Image=@<képfájl elérési útja>'
-- curl -X 'POST' 'http://localhost:5097/api/feeds' -F 'Title=This just happened!' -F 'Description=Incredible footage!' -F 'AuthorId=2' -F 'Type=3' -F 'VideoUrl=<videó elérési útja>'
-- curl -X 'POST' 'http://localhost:5097/api/feeds' -F 'Title=This just happened!' -F 'Description=Incredible footage!' -F 'AuthorId=2' -F 'Type=3' -F 'Image=@<képfájl elérési útja>' -F 'VideoUrl=<videó elérési útja>'
+- `curl -X 'POST' 'http://localhost:5097/api/feeds' -F 'Title=This just happened!' -F 'Description=Incredible photo!' -F 'AuthorId=2' -F 'Type=2' -F 'Image=@<képfájl elérési útja>'`
+- `curl -X 'POST' 'http://localhost:5097/api/feeds' -F 'Title=This just happened!' -F 'Description=Incredible footage!' -F 'AuthorId=2' -F 'Type=3' -F 'VideoUrl=<videó elérési útja>'`
+- `curl -X 'POST' 'http://localhost:5097/api/feeds' -F 'Title=This just happened!' -F 'Description=Incredible footage!' -F 'AuthorId=2' -F 'Type=3' -F 'Image=@<képfájl elérési útja>' -F 'VideoUrl=<videó elérési útja>'`
 
 #### Feed módosítása
-- curl -X 'PUT' 'http://localhost:5097/api/feeds/2' -F 'Title=This just happened!' -F 'Description=Incredible!' -F 'AuthorId=2' -F 'Type=1'
-- curl -X 'PUT' 'http://localhost:5097/api/feeds/2' -F 'Title=This just happened!' -F 'Description=Incredible photo!' -F 'AuthorId=2' -F 'Type=2' -F 'Image=@<képfájl elérési útja>'
-- curl -X 'PUT' 'http://localhost:5097/api/feeds/2' -F 'Title=This just happened!' -F 'Description=Incredible footage!' -F 'AuthorId=2' -F 'Type=3' -F 'VideoUrl=<videó elérési útja>'
-- curl -X 'PUT' 'http://localhost:5097/api/feeds/2' -F 'Title=This just happened!' -F 'Description=Incredible footage!' -F 'AuthorId=2' -F 'Type=3' -F 'Image=@<képfájl elérési útja>' -F 'VideoUrl=<videó elérési útja>'
+- `curl -X 'PUT' 'http://localhost:5097/api/feeds/2' -F 'Title=This just happened!' -F 'Description=Incredible!' -F 'AuthorId=2' -F 'Type=1'`
+- `curl -X 'PUT' 'http://localhost:5097/api/feeds/2' -F 'Title=This just happened!' -F 'Description=Incredible photo!' -F 'AuthorId=2' -F 'Type=2' -F 'Image=@<képfájl elérési útja>'`
+- `curl -X 'PUT' 'http://localhost:5097/api/feeds/2' -F 'Title=This just happened!' -F 'Description=Incredible footage!' -F 'AuthorId=2' -F 'Type=3' -F 'VideoUrl=<videó elérési útja>'`
+- `curl -X 'PUT' 'http://localhost:5097/api/feeds/2' -F 'Title=This just happened!' -F 'Description=Incredible footage!' -F 'AuthorId=2' -F 'Type=3' -F 'Image=@<képfájl elérési útja>' -F 'VideoUrl=<videó elérési útja>'`
 
 #### Feed törlése
-- curl -X 'DELETE' 'http://localhost:5097/api/feeds/2'
+- `curl -X 'DELETE' 'http://localhost:5097/api/feeds/2'`
 
 ## Megjegyzések
 
