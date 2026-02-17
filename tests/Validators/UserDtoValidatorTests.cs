@@ -11,11 +11,11 @@ public class UserDtoValidatorTests
 {
     private UserDtoValidator _validator;
 
-    [OneTimeSetUp]
-    public void OneTimeSetup()
+    [SetUp]
+    public void Setup()
     {
         var options = new DbContextOptionsBuilder<AppDbContext>()
-            .UseInMemoryDatabase("dbMock")
+            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
             .Options;
 
         var appDbContextMock = new AppDbContext(options);
