@@ -10,30 +10,40 @@ Egyszerű web API feedek kezelésére.
 
 ### Git repository letöltése
 
-[cd <base dir>]
+[cd &lt;base dir&gt;]
+
 git clone https://github.com/28b35a7dbc94f792/feeds-web-api.git
 
 ### Fordítás
 
-[cd <base dir>]
+[cd &lt;base dir&gt;]
+
 cd feeds-web-api/
+
 dotnet build
+
 cd src
+
 dotnet ef database update
 
 ### Futtatás
 
-[cd <base dir>]
+[cd &lt;base dir&gt;]
+
 cd feeds-web-api/src/
+
 dotnet run
 
 Az alkalmazás alapértelmezés szerint itt lesz elérhető:
+
 http://localhost:5097/
 
 ### Tesztek futtatása
 
-[cd <base dir>]
+[cd &lt;base dir&gt;]
+
 cd feeds-web-api/tests/
+
 dotnet test
 
 ## Funkciók
@@ -41,51 +51,52 @@ dotnet test
 ### Swagger
 
 Az alkalmazás indítását követően a végpontok specifikációja itt érhető el:
+
 http://localhost:5097/swagger/index.html
 
 ### Végpontok hívása curl segítségével
 
 #### Felhasználó lekérése
-curl -X 'GET' 'http://localhost:5097/api/users/1'
+- curl -X 'GET' 'http://localhost:5097/api/users/1'
 
 #### Felhasználó létrehozása
-curl -X 'POST' 'http://localhost:5097/api/users' -F 'Username=ezra.hay' -F 'Name=Ezra Hay'
+- curl -X 'POST' 'http://localhost:5097/api/users' -F 'Username=ezra.hay' -F 'Name=Ezra Hay'
 
 #### Felhasználó módosítása
-curl -X 'PUT' 'http://localhost:5097/api/users/4' -F 'Username=ezra.h' -F 'Name=Ezra H.'
+- curl -X 'PUT' 'http://localhost:5097/api/users/4' -F 'Username=ezra.h' -F 'Name=Ezra H.'
 
 #### Felhasználó törlése
-curl -X 'DELETE' 'http://localhost:5097/api/users/4'
+- curl -X 'DELETE' 'http://localhost:5097/api/users/4'
 
 #### Feed like-olása (felhasználó 3 like-olja feed 2-t)
-curl -X 'POST' 'http://localhost:5097/api/users/3/likes/2'
+- curl -X 'POST' 'http://localhost:5097/api/users/3/likes/2'
 
 #### Feed unlike-olása
-curl -X 'DELETE' 'http://localhost:5097/api/users/3/likes/2'
+- curl -X 'DELETE' 'http://localhost:5097/api/users/3/likes/2'
 
 #### Összes feed lekérése (külsők is, lásd Megjegyzések)
-curl -X 'GET' 'http://localhost:5097/api/feeds'
+- curl -X 'GET' 'http://localhost:5097/api/feeds'
 
 #### Feed lekérése
-curl -X 'GET' 'http://localhost:5097/api/feeds/1'
+- curl -X 'GET' 'http://localhost:5097/api/feeds/1'
 
 #### Feedhez tartozó kép lekérése
-curl -X 'GET' 'http://localhost:5097/api/feeds/1/image' --output feed-image.gif
+- curl -X 'GET' 'http://localhost:5097/api/feeds/1/image' --output feed-image.gif
 
 #### Feed létrehozása
-curl -X 'POST' 'http://localhost:5097/api/feeds' -F 'Title=This just happened!' -F 'Description=Incredible!' -F 'AuthorId=2' -F 'Type=1'
-curl -X 'POST' 'http://localhost:5097/api/feeds' -F 'Title=This just happened!' -F 'Description=Incredible photo!' -F 'AuthorId=2' -F 'Type=2' -F 'Image=@<képfájl elérési útja>'
-curl -X 'POST' 'http://localhost:5097/api/feeds' -F 'Title=This just happened!' -F 'Description=Incredible footage!' -F 'AuthorId=2' -F 'Type=3' -F 'VideoUrl=<videó elérési útja>'
-curl -X 'POST' 'http://localhost:5097/api/feeds' -F 'Title=This just happened!' -F 'Description=Incredible footage!' -F 'AuthorId=2' -F 'Type=3' -F 'Image=@<képfájl elérési útja>' -F 'VideoUrl=<videó elérési útja>'
+- curl -X 'POST' 'http://localhost:5097/api/feeds' -F 'Title=This just happened!' -F 'Description=Incredible!' -F 'AuthorId=2' -F 'Type=1'
+- curl -X 'POST' 'http://localhost:5097/api/feeds' -F 'Title=This just happened!' -F 'Description=Incredible photo!' -F 'AuthorId=2' -F 'Type=2' -F 'Image=@<képfájl elérési útja>'
+- curl -X 'POST' 'http://localhost:5097/api/feeds' -F 'Title=This just happened!' -F 'Description=Incredible footage!' -F 'AuthorId=2' -F 'Type=3' -F 'VideoUrl=<videó elérési útja>'
+- curl -X 'POST' 'http://localhost:5097/api/feeds' -F 'Title=This just happened!' -F 'Description=Incredible footage!' -F 'AuthorId=2' -F 'Type=3' -F 'Image=@<képfájl elérési útja>' -F 'VideoUrl=<videó elérési útja>'
 
 #### Feed módosítása
-curl -X 'PUT' 'http://localhost:5097/api/feeds/2' -F 'Title=This just happened!' -F 'Description=Incredible!' -F 'AuthorId=2' -F 'Type=1'
-curl -X 'PUT' 'http://localhost:5097/api/feeds/2' -F 'Title=This just happened!' -F 'Description=Incredible photo!' -F 'AuthorId=2' -F 'Type=2' -F 'Image=@<képfájl elérési útja>'
-curl -X 'PUT' 'http://localhost:5097/api/feeds/2' -F 'Title=This just happened!' -F 'Description=Incredible footage!' -F 'AuthorId=2' -F 'Type=3' -F 'VideoUrl=<videó elérési útja>'
-curl -X 'PUT' 'http://localhost:5097/api/feeds/2' -F 'Title=This just happened!' -F 'Description=Incredible footage!' -F 'AuthorId=2' -F 'Type=3' -F 'Image=@<képfájl elérési útja>' -F 'VideoUrl=<videó elérési útja>'
+- curl -X 'PUT' 'http://localhost:5097/api/feeds/2' -F 'Title=This just happened!' -F 'Description=Incredible!' -F 'AuthorId=2' -F 'Type=1'
+- curl -X 'PUT' 'http://localhost:5097/api/feeds/2' -F 'Title=This just happened!' -F 'Description=Incredible photo!' -F 'AuthorId=2' -F 'Type=2' -F 'Image=@<képfájl elérési útja>'
+- curl -X 'PUT' 'http://localhost:5097/api/feeds/2' -F 'Title=This just happened!' -F 'Description=Incredible footage!' -F 'AuthorId=2' -F 'Type=3' -F 'VideoUrl=<videó elérési útja>'
+- curl -X 'PUT' 'http://localhost:5097/api/feeds/2' -F 'Title=This just happened!' -F 'Description=Incredible footage!' -F 'AuthorId=2' -F 'Type=3' -F 'Image=@<képfájl elérési útja>' -F 'VideoUrl=<videó elérési útja>'
 
 #### Feed törlése
-curl -X 'DELETE' 'http://localhost:5097/api/feeds/2'
+- curl -X 'DELETE' 'http://localhost:5097/api/feeds/2'
 
 ## Megjegyzések
 
