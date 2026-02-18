@@ -1,6 +1,6 @@
 namespace FeedsWebApi.Dtos;
 
-public class UserBaseDto
+public abstract class UserBaseDto
 {
     public string Username { get; set; } = string.Empty;
 

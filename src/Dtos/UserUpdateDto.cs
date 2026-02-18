@@ -1,4 +1,3 @@
 namespace FeedsWebApi.Dtos;
 
-public class UserUpdateDto : UserBaseDto
-{ }
+public class UserUpdateDto : UserBaseDto { }

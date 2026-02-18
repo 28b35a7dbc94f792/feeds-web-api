@@ -21,18 +21,18 @@ public class UserService : IUserService
 {
     private readonly AppDbContext _context;
     private readonly IUserResponseDtoFactory _userResponseDtoFactory;
-    private readonly IUserDtoValidator _userDtoValidator;
+    private readonly IUserValidator _userValidator;
     private readonly ILikeValidator _likeValidator;
 
     public UserService(
         AppDbContext context,
         IUserResponseDtoFactory userResponseDtoFactory,
-        IUserDtoValidator userDtoValidator,
+        IUserValidator userValidator,
         ILikeValidator likeValidator)
     {
         _context = context;
         _userResponseDtoFactory = userResponseDtoFactory;
-        _userDtoValidator = userDtoValidator;
+        _userValidator = userValidator;
         _likeValidator = likeValidator;
     }
 
@@ -48,7 +48,7 @@ public class UserService : IUserService
 
     public async Task<UserResponseDto?> CreateAsync(UserCreateDto dto)
     {
-        await _userDtoValidator.ValidateCreate(dto);
+        await _userValidator.ValidateCreate(dto);
 
         var user = new User
         {
@@ -70,7 +70,7 @@ public class UserService : IUserService
         if (user == null)
             return null;
 
-        await _userDtoValidator.ValidateUpdate(id, dto);
+        await _userValidator.ValidateUpdate(id, dto);
 
         user.Username = dto.Username;
         user.Name = dto.Name;

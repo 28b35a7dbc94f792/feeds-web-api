@@ -22,20 +22,20 @@ public class FeedService : IFeedService
 {
     private readonly AppDbContext _context;
     private readonly IFeedResponseDtoFactory _feedResponseDtoFactory;
-    private readonly IFeedDtoValidator _feedDtoValidator;
+    private readonly IFeedValidator _feedValidator;
     private readonly IImageHelper _imageHelper;
     private readonly IRemoteFeedHelper _remoteFeedHelper;
 
     public FeedService(
         AppDbContext context,
         IFeedResponseDtoFactory feedResponseDtoFactory,
-        IFeedDtoValidator feedDtoValidator,
+        IFeedValidator feedValidator,
         IImageHelper imageHelper,
         IRemoteFeedHelper remoteFeedHelper)
     {
         _context = context;
         _feedResponseDtoFactory = feedResponseDtoFactory;
-        _feedDtoValidator = feedDtoValidator;
+        _feedValidator = feedValidator;
         _imageHelper = imageHelper;
         _remoteFeedHelper = remoteFeedHelper;
     }
@@ -95,7 +95,7 @@ public class FeedService : IFeedService
 
     public async Task<FeedResponseDto?> CreateAsync(FeedCreateDto dto)
     {
-        await _feedDtoValidator.ValidateCreate(dto);
+        await _feedValidator.ValidateCreate(dto);
 
         var feed = new Feed
         {
@@ -121,8 +121,6 @@ public class FeedService : IFeedService
 
         if (feed == null)
             return null;
-
-        await _feedDtoValidator.ValidateUpdate(dto);
 
         feed.Title = dto.Title;
         feed.Description = dto.Description;

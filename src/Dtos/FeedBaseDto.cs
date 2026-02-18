@@ -2,7 +2,7 @@ using FeedsWebApi.Enums;
 
 namespace FeedsWebApi.Dtos;
 
-public class FeedBaseDto
+public abstract class FeedBaseDto
 {
     public string Title { get; set; } = string.Empty;
 
@@ -10,5 +10,7 @@ public class FeedBaseDto
     
     public FeedType Type { get; set; }
 
+    public IFormFile? Image { get; set; }
+    
     public string? VideoUrl { get; set; }
 }
