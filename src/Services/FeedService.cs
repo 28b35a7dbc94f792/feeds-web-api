@@ -112,7 +112,7 @@ public class FeedService : IFeedService
 
         await _context.SaveChangesAsync();
 
-        return _feedResponseDtoFactory.Create(feed);
+        return await GetAsync(feed.Id);
     }
 
     public async Task<FeedResponseDto?> UpdateAsync(int id, FeedUpdateDto dto)
