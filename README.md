@@ -91,7 +91,7 @@ http://localhost:5097/swagger/index.html
 
 ## Megjegyzések
 
-- Minden feedhez kötelező `Title`, `Description` és `AuthorId` megadása, utóbbi egy létező felhasználó ID-ja kell, hogy legyen.
+- Minden feedhez kötelező `Title`, `Description` és `AuthorId` megadása. Utóbbi egy létező felhasználó ID-ja kell, hogy legyen, és később nem módosítható.
 - Text feedekhez (`Type=1`) nem tartozhat `Image` és `VideoUrl`.
 - Image feedekhez (`Type=2`) tartoznia kell `Image`-nek, de nem tartozhaz hozzá `VideoUrl`.
 - Video feedekhez (`Type=3`) tartozhat `Image` és tartoznia kell `VideoUrl`-nek.
