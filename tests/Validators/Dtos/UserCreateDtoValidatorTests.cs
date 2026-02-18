@@ -1,7 +1,7 @@
-using FeedsWebApi.Validators.FluentValidatiom;
+using FeedsWebApi.Validators.Dtos;
 using FeedsWebApiTests.Helpers;
 
-namespace UsersWebApiTests.Validators.FluentValidation;
+namespace FeedsWebApiTests.Validators.Dtos;
 
 [TestFixture]
 public class UserCreateDtoValidatorTests

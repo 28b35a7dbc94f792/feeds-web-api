@@ -2,7 +2,7 @@ using FeedsWebApi.Dtos;
 using FeedsWebApi.Enums;
 using FluentValidation;
 
-namespace FeedsWebApi.Validators.FluentValidatiom;
+namespace FeedsWebApi.Validators.Dtos;
 
 public abstract class FeedDtoValidator<T> : AbstractValidator<T>
     where T : FeedBaseDto

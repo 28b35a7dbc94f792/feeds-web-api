@@ -1,7 +1,7 @@
 using FeedsWebApi.Dtos;
 using FluentValidation;
 
-namespace FeedsWebApi.Validators.FluentValidatiom;
+namespace FeedsWebApi.Validators.Dtos;
 
 public abstract class UserDtoValidator<T> : AbstractValidator<T>
     where T : UserBaseDto

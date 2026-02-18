@@ -1,26 +1,26 @@
 using FeedsWebApi.Enums;
-using FeedsWebApi.Validators.FluentValidatiom;
+using FeedsWebApi.Validators.Dtos;
 using FeedsWebApiTests.Helpers;
 using Microsoft.AspNetCore.Http;
 using Moq;
 
-namespace FeedsWebApiTests.Validators.FluentValidation;
+namespace FeedsWebApiTests.Validators.Dtos;
 
 [TestFixture]
-public class FeedUpdateDtoValidatorTests
+public class FeedCreateDtoValidatorTests
 {
-    private FeedUpdateDtoValidator _validator;
+    private FeedCreateDtoValidator _validator;
 
     [SetUp]
     public void Setup()
     {
-        _validator = new FeedUpdateDtoValidator();
+        _validator = new FeedCreateDtoValidator();
     }
 
     [Test]
     public void Test_That_Text_Feed_Validator_Passes_On_Valid_Dto()
     {
-        var dto = ValidatorTestHelper.MockValidUpdateTextFeedDto();
+        var dto = ValidatorTestHelper.MockValidCreateTextFeedDto();
 
         var result = _validator.Validate(dto);
 
@@ -30,7 +30,7 @@ public class FeedUpdateDtoValidatorTests
     [Test]
     public void Test_That_Image_Feed_Validator_Passes_On_Valid_Dto()
     {
-        var dto =  ValidatorTestHelper.MockValidUpdateImageFeedDto();
+        var dto =  ValidatorTestHelper.MockValidCreateImageFeedDto();
 
         var result = _validator.Validate(dto);
 
@@ -40,7 +40,7 @@ public class FeedUpdateDtoValidatorTests
     [Test]
     public void Test_That_Video_Feed_Validator_Passes_On_Valid_Dto()
     {
-        var dto =  ValidatorTestHelper.MockValidUpdateVideoFeedDto();
+        var dto =  ValidatorTestHelper.MockValidCreateVideoFeedDto();
 
         var result = _validator.Validate(dto);
 
@@ -50,7 +50,7 @@ public class FeedUpdateDtoValidatorTests
     [Test]
     public void Test_That_Validator_Throws_On_Title_Missing()
     {
-        var dto = ValidatorTestHelper.MockValidUpdateTextFeedDto();
+        var dto = ValidatorTestHelper.MockValidCreateTextFeedDto();
 
         dto.Title = string.Empty;
 
@@ -63,7 +63,7 @@ public class FeedUpdateDtoValidatorTests
     [Test]
     public void Test_That_Validator_Throws_On_Description_Missing()
     {
-        var dto = ValidatorTestHelper.MockValidUpdateTextFeedDto();
+        var dto = ValidatorTestHelper.MockValidCreateTextFeedDto();
 
         dto.Description = string.Empty;
 
@@ -76,7 +76,7 @@ public class FeedUpdateDtoValidatorTests
     [Test]
     public void Test_That_Validator_Throws_On_Feed_Type_Invalid()
     {
-        var dto = ValidatorTestHelper.MockValidUpdateTextFeedDto();
+        var dto = ValidatorTestHelper.MockValidCreateTextFeedDto();
 
         dto.Type = (FeedType)13;
 
@@ -89,7 +89,7 @@ public class FeedUpdateDtoValidatorTests
     [Test]
     public void Test_That_Text_Feed_Validator_Throws_On_Image_Present()
     {
-        var dto = ValidatorTestHelper.MockValidUpdateTextFeedDto();
+        var dto = ValidatorTestHelper.MockValidCreateTextFeedDto();
 
         dto.Image = new Mock<IFormFile>().Object;
 
@@ -102,7 +102,7 @@ public class FeedUpdateDtoValidatorTests
     [Test]
     public void Test_That_Text_Feed_Validator_Throws_On_Video_Url_Present()
     {
-        var dto = ValidatorTestHelper.MockValidUpdateTextFeedDto();
+        var dto = ValidatorTestHelper.MockValidCreateTextFeedDto();
 
         dto.VideoUrl = "http://xzy";
 
@@ -115,7 +115,7 @@ public class FeedUpdateDtoValidatorTests
     [Test]
     public void Test_That_Image_Feed_Validator_Throws_On_Image_Missing()
     {
-        var dto = ValidatorTestHelper.MockValidUpdateImageFeedDto();
+        var dto = ValidatorTestHelper.MockValidCreateImageFeedDto();
 
         dto.Image = null;
 
@@ -128,7 +128,7 @@ public class FeedUpdateDtoValidatorTests
     [Test]
     public void Test_That_Image_Feed_Validator_Throws_On_Video_Url_Present()
     {
-        var dto = ValidatorTestHelper.MockValidUpdateImageFeedDto();
+        var dto = ValidatorTestHelper.MockValidCreateImageFeedDto();
 
         dto.VideoUrl = "http://xzy";
 
@@ -141,7 +141,7 @@ public class FeedUpdateDtoValidatorTests
     [Test]
     public void Test_That_Video_Feed_Validator_Throws_On_Video_Url_Missing()
     {
-        var dto = ValidatorTestHelper.MockValidUpdateVideoFeedDto();
+        var dto = ValidatorTestHelper.MockValidCreateVideoFeedDto();
 
         dto.VideoUrl = string.Empty;
 
