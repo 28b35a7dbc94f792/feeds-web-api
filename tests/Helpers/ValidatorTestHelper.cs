@@ -11,8 +11,8 @@ public static class ValidatorTestHelper
     {
         return new UserCreateDto
         {
-            Username = "Cypress Vale",
-            Name = "cypress.vale"
+            Username = "cypress.vale",
+            Name = "Cypress Vale"
         };
     }
 
@@ -20,8 +20,8 @@ public static class ValidatorTestHelper
     {
         return new UserUpdateDto
         {
-            Username = "Cypress V.",
-            Name = "cypress.v"
+            Username = "cypress.v",
+            Name = "Cypress V."
         };
     }
     public static FeedCreateDto MockValidCreateTextFeedDto()
