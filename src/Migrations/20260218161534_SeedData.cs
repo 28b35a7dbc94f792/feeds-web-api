@@ -8,76 +8,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace FeedsWebApi.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class SeedData : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Users",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Username = table.Column<string>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
-                    CreationDate = table.Column<DateTime>(type: "TEXT", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Users", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Feeds",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Title = table.Column<string>(type: "TEXT", nullable: false),
-                    Description = table.Column<string>(type: "TEXT", nullable: false),
-                    AuthorId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Type = table.Column<int>(type: "INTEGER", nullable: false),
-                    ImageData = table.Column<byte[]>(type: "BLOB", nullable: true),
-                    ImageContentType = table.Column<string>(type: "TEXT", nullable: true),
-                    VideoUrl = table.Column<string>(type: "TEXT", nullable: true),
-                    PublishingDate = table.Column<DateTime>(type: "TEXT", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Feeds", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Feeds_Users_AuthorId",
-                        column: x => x.AuthorId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Likes",
-                columns: table => new
-                {
-                    UserId = table.Column<int>(type: "INTEGER", nullable: false),
-                    FeedId = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Likes", x => new { x.UserId, x.FeedId });
-                    table.ForeignKey(
-                        name: "FK_Likes_Feeds_FeedId",
-                        column: x => x.FeedId,
-                        principalTable: "Feeds",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Likes_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "CreationDate", "Name", "Username" },
@@ -118,35 +53,110 @@ namespace FeedsWebApi.Migrations
                     { 4, 3 },
                     { 7, 3 }
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Feeds_AuthorId",
-                table: "Feeds",
-                column: "AuthorId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Likes_FeedId",
-                table: "Likes",
-                column: "FeedId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Users_Username",
-                table: "Users",
-                column: "Username",
-                unique: true);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Likes");
+            migrationBuilder.DeleteData(
+                table: "Feeds",
+                keyColumn: "Id",
+                keyValue: 2);
 
-            migrationBuilder.DropTable(
-                name: "Feeds");
+            migrationBuilder.DeleteData(
+                table: "Feeds",
+                keyColumn: "Id",
+                keyValue: 6);
 
-            migrationBuilder.DropTable(
-                name: "Users");
+            migrationBuilder.DeleteData(
+                table: "Feeds",
+                keyColumn: "Id",
+                keyValue: 9);
+
+            migrationBuilder.DeleteData(
+                table: "Likes",
+                keyColumns: new[] { "FeedId", "UserId" },
+                keyValues: new object[] { 1, 1 });
+
+            migrationBuilder.DeleteData(
+                table: "Likes",
+                keyColumns: new[] { "FeedId", "UserId" },
+                keyValues: new object[] { 4, 1 });
+
+            migrationBuilder.DeleteData(
+                table: "Likes",
+                keyColumns: new[] { "FeedId", "UserId" },
+                keyValues: new object[] { 5, 1 });
+
+            migrationBuilder.DeleteData(
+                table: "Likes",
+                keyColumns: new[] { "FeedId", "UserId" },
+                keyValues: new object[] { 3, 2 });
+
+            migrationBuilder.DeleteData(
+                table: "Likes",
+                keyColumns: new[] { "FeedId", "UserId" },
+                keyValues: new object[] { 8, 2 });
+
+            migrationBuilder.DeleteData(
+                table: "Likes",
+                keyColumns: new[] { "FeedId", "UserId" },
+                keyValues: new object[] { 1, 3 });
+
+            migrationBuilder.DeleteData(
+                table: "Likes",
+                keyColumns: new[] { "FeedId", "UserId" },
+                keyValues: new object[] { 4, 3 });
+
+            migrationBuilder.DeleteData(
+                table: "Likes",
+                keyColumns: new[] { "FeedId", "UserId" },
+                keyValues: new object[] { 7, 3 });
+
+            migrationBuilder.DeleteData(
+                table: "Feeds",
+                keyColumn: "Id",
+                keyValue: 1);
+
+            migrationBuilder.DeleteData(
+                table: "Feeds",
+                keyColumn: "Id",
+                keyValue: 3);
+
+            migrationBuilder.DeleteData(
+                table: "Feeds",
+                keyColumn: "Id",
+                keyValue: 4);
+
+            migrationBuilder.DeleteData(
+                table: "Feeds",
+                keyColumn: "Id",
+                keyValue: 5);
+
+            migrationBuilder.DeleteData(
+                table: "Feeds",
+                keyColumn: "Id",
+                keyValue: 7);
+
+            migrationBuilder.DeleteData(
+                table: "Feeds",
+                keyColumn: "Id",
+                keyValue: 8);
+
+            migrationBuilder.DeleteData(
+                table: "Users",
+                keyColumn: "Id",
+                keyValue: 1);
+
+            migrationBuilder.DeleteData(
+                table: "Users",
+                keyColumn: "Id",
+                keyValue: 2);
+
+            migrationBuilder.DeleteData(
+                table: "Users",
+                keyColumn: "Id",
+                keyValue: 3);
         }
     }
 }
